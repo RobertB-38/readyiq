@@ -18,6 +18,12 @@ upload_to_azure/
 *.log
 .ragas_cache/
 
+# Demo video (link from README instead of committing the file — keeps the repo light)
+demo video/
+*.mp4
+*.mov
+*.m4v
+
 # OS / editor
 .DS_Store
 .idea/

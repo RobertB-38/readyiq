@@ -6,6 +6,10 @@ Built for the **Microsoft Agents League @ AI Skills Fest 2026 — Reasoning Agen
 
 > ⚠️ **Synthetic data only.** All candidate records and exam-objective documents in this repo are fabricated for demonstration. No real learner data, employee data, or PII is used. See `synthetic_data/`.
 
+## 🎬 Demo video
+
+**▶️ [Watch the demo](https://youtu.be/XAbwQDZ1_hg)** — ReadyIQ assessing three synthetic candidates end to end, grounded in Foundry IQ with live Microsoft Learn content.
+
 ## Screenshots
 
 ![ReadyIQ hero](docs/screenshots/hero.png)
