@@ -6,6 +6,16 @@ Built for the **Microsoft Agents League @ AI Skills Fest 2026 — Reasoning Agen
 
 > ⚠️ **Synthetic data only.** All candidate records and exam-objective documents in this repo are fabricated for demonstration. No real learner data, employee data, or PII is used. See `synthetic_data/`.
 
+## Screenshots
+
+![ReadyIQ hero](docs/screenshots/hero.png)
+
+| The adversarial tribunal | Verdict + live Microsoft Learn |
+|---|---|
+| ![Advocate vs Examiner](docs/screenshots/debate.png) | ![NOT YET verdict with live Learn links](docs/screenshots/verdict-learn.png) |
+
+*Synthetic candidate for AZ-400 — the Examiner wins on the under-weighted pipelines domain, and the Curator pulls live official study content via the Microsoft Learn MCP.*
+
 ## Why it's different
 
 Most certification-readiness agents are *linear* — curate, plan, quiz. ReadyIQ is **adversarial**: two agents argue opposing sides of "is this learner ready?", a Judge weighs the debate, and a verification gate drops any claim not grounded in approved sources. That adversarial cross-examination is a stronger reliability story than passive citation, and it's the part of the system you can *watch* refuse to make things up.
