@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ReadyIQ — Test before the test</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --violet:#8b5cf6; --magenta:#d946ef; --indigo:#6366f1;
+    --glass:rgba(255,255,255,0.07); --glass-brd:rgba(255,255,255,0.16);
+    --ink:#f5f3ff; --muted:#b9b3d6;
+  }
+  html,body{height:100%;}
+  body{
+    font-family:'Inter',sans-serif; color:var(--ink); overflow:hidden;
+    background:
+      radial-gradient(900px 600px at 15% 10%, rgba(139,92,246,.35), transparent 60%),
+      radial-gradient(800px 600px at 85% 15%, rgba(217,70,239,.28), transparent 60%),
+      radial-gradient(900px 700px at 50% 110%, rgba(99,102,241,.30), transparent 60%),
+      linear-gradient(160deg,#0d0a1f 0%, #140e2e 50%, #0d0a1f 100%);
+  }
+  /* ambient drifting blobs */
+  .blob{position:fixed; border-radius:50%; filter:blur(70px); opacity:.5; z-index:0; animation:drift 18s ease-in-out infinite;}
+  .blob.b1{width:380px;height:380px;background:#8b5cf6;top:-80px;left:-60px;}
+  .blob.b2{width:340px;height:340px;background:#d946ef;bottom:-90px;right:-40px;animation-delay:-6s;}
+  .blob.b3{width:300px;height:300px;background:#6366f1;bottom:20%;left:40%;animation-delay:-11s;}
+  @keyframes drift{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(30px,-30px) scale(1.08);}}
+
+  /* floating 3D-style objects (relevant to the product) */
+  .obj{position:fixed; font-size:64px; z-index:1; filter:drop-shadow(0 12px 24px rgba(0,0,0,.4));
+       animation:float 9s ease-in-out infinite; user-select:none;}
+  .obj.o1{top:14%;  left:8%;  animation-delay:0s;   font-size:78px;}
+  .obj.o2{top:22%;  right:10%; animation-delay:-2s;}
+  .obj.o3{bottom:14%;left:13%; animation-delay:-4s;}
+  .obj.o4{bottom:20%;right:9%; animation-delay:-6s;  font-size:72px;}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(-6deg);}50%{transform:translateY(-22px) rotate(6deg);}}
+
+  /* rotating glass 3D cube accent */
+  .scene{position:fixed; top:50%; right:12%; transform:translateY(-50%); width:120px;height:120px;
+         perspective:600px; z-index:1; opacity:.9;}
+  .cube{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:spin 14s linear infinite;}
+  .face{position:absolute;width:120px;height:120px;background:rgba(168,85,247,.14);
+        border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px);border-radius:14px;
+        display:flex;align-items:center;justify-content:center;font-size:40px;}
+  .f1{transform:rotateY(0deg) translateZ(60px);} .f2{transform:rotateY(90deg) translateZ(60px);}
+  .f3{transform:rotateY(180deg) translateZ(60px);} .f4{transform:rotateY(-90deg) translateZ(60px);}
+  .f5{transform:rotateX(90deg) translateZ(60px);} .f6{transform:rotateX(-90deg) translateZ(60px);}
+  @keyframes spin{from{transform:rotateX(-20deg) rotateY(0);}to{transform:rotateX(-20deg) rotateY(360deg);}}
+
+  /* center glass hero */
+  .wrap{position:relative;z-index:2;height:100%;display:flex;align-items:center;justify-content:center;padding:24px;}
+  .hero{max-width:720px;text-align:center;background:var(--glass);border:1px solid var(--glass-brd);
+        border-radius:28px;padding:54px 48px;backdrop-filter:blur(22px) saturate(160%);
+        box-shadow:0 30px 80px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.18);
+        animation:rise .8s cubic-bezier(.2,.8,.2,1) both;}
+  @keyframes rise{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  .brand{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;letter-spacing:.04em;
+         color:var(--muted);font-size:.85rem;text-transform:uppercase;margin-bottom:18px;}
+  .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--magenta));
+       box-shadow:0 0 14px var(--violet);}
+  h1{font-size:4rem;font-weight:900;line-height:1.02;letter-spacing:-.04em;}
+  h1 .g{background:linear-gradient(90deg,#a78bfa,#e879f9);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .tag{font-size:1.15rem;color:var(--muted);margin-top:18px;line-height:1.6;}
+  .cta{margin-top:34px;display:inline-flex;align-items:center;gap:.6rem;cursor:pointer;
+       background:linear-gradient(90deg,var(--violet),var(--magenta));color:#fff;border:none;
+       padding:16px 34px;border-radius:14px;font-size:1.05rem;font-weight:700;font-family:inherit;
+       box-shadow:0 14px 34px rgba(139,92,246,.45);transition:transform .15s ease, filter .15s ease;}
+  .cta:hover{transform:translateY(-2px);filter:brightness(1.08);}
+  .verdicts{margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  .vchip{padding:.5rem 1rem;border-radius:999px;font-weight:700;font-size:.9rem;
+         border:1px solid var(--glass-brd);backdrop-filter:blur(10px);}
+  .ready{background:rgba(34,197,94,.16);color:#86efac;}
+  .almost{background:rgba(245,158,11,.16);color:#fcd34d;}
+  .notyet{background:rgba(239,68,68,.16);color:#fca5a5;}
+  .foot{margin-top:30px;font-size:.8rem;color:var(--muted);letter-spacing:.02em;}
+</style>
+</head>
+<body>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+  <!-- floating product-relevant 3D-style objects -->
+  <div class="obj o1">🎓</div>
+  <div class="obj o2">⚖️</div>
+  <div class="obj o3">📚</div>
+  <div class="obj o4">🧠</div>
+
+  <!-- rotating glass cube -->
+  <div class="scene"><div class="cube">
+    <div class="face f1">🎓</div><div class="face f2">⚖️</div><div class="face f3">📚</div>
+    <div class="face f4">🧠</div><div class="face f5">✅</div><div class="face f6">⛔</div>
+  </div></div>
+
+  <div class="wrap">
+    <div class="hero">
+      <div class="brand"><span class="dot"></span> ReadyIQ · Microsoft Agents League</div>
+      <h1>Test before <span class="g">the test</span></h1>
+      <p class="tag">An Advocate and an Examiner debate your certification readiness.
+      A Judge decides — every claim cited, refusing to guess. Grounded in Microsoft Foundry IQ,
+      with live study content from the Microsoft Learn MCP.</p>
+      <div class="verdicts">
+        <span class="vchip ready">✅ READY</span>
+        <span class="vchip almost">🟡 ALMOST</span>
+        <span class="vchip notyet">⛔ NOT YET</span>
+      </div>
+      <button class="cta" onclick="window.open('http://localhost:8501','_blank')">⚖️ Check Readiness →</button>
+      <p class="foot">Microsoft Foundry · Foundry IQ · LangGraph · Microsoft Learn MCP · synthetic data only</p>
+    </div>
+  </div>
+</body>
+</html>
